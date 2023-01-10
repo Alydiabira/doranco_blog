@@ -36,7 +36,18 @@ class Core
         }
 
         // Récupérer les paramètres.
+        $this->params = $url ? array_values($url) : [];
+
+        // $x = 0;
+        // if ($x >= 0) {
+        //     echo "azerty";
+        // } else {
+        //     echo "qwerty";
+        // }
+        // echo $x >= 0 ? "le code à executer si true" : "le code à executer si false";
+
         // Appel un callback avec un tableau de paramètre
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params); // Permet de récuperer les paramètres dans un tableau
     }
 
     /**
@@ -60,4 +71,5 @@ class Core
     // filter_var() permet de filtré une variable avec un filtre specifique.
     // ucwords // met la premiere lettre en majuscule.
     // unset() sert à détruire une variable.
+    // array_values sert à retourner toutes les valeurs d'un tableau
 }
