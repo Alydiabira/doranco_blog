@@ -8,7 +8,7 @@ La base de donnée se compose de 2 tables, ***Utilisateurs*** & ***Articles***.
 La table ***Utilisateurs*** est composé des colonnes suivantes:
  - **lastname** - contient entre 2 & 20 caractères
  - **firstname** - contient entre 2 & 20 caractères
- - **email**
+ - **email** - doit être unique à chaque utilisateur
  - **password** - doit être crypté
  - **alias** - contient entre 6 & 25 caractères
  - **bio** - contient au minimum 3000 caractères
@@ -44,3 +44,5 @@ Autre avantage de la structure MVC est la **réutilisabilité** du code.
 
 ### Le délai
 Livraison le **13/01/2023**
+
+### Etapes
