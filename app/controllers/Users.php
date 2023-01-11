@@ -60,7 +60,7 @@ class Users extends Controller
         if (empty($data['firstname'])) {
             $data['firstnameError'] = "Please enter firstname";
         } elseif (strlen($data['firstname']) < 2 || strlen($data['firstname']) > 20) {
-            $data['firstnameError'] = "Please enter firstname";
+            $data['firstnameError'] = "Length not valid";
         }
         elseif (!preg_match($nameValidation, $data['firstname'])) {
             $data['firstnameError'] = "firstname can only contain letters and numbers";
