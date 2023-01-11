@@ -6,3 +6,4 @@
  * Etape 4: Création des controlleurs
  * Etape 5: Création des vues
  */
+require_once '../app/require.php';
