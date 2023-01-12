@@ -1,67 +1,57 @@
 <?php
-/**
- * Gère les URLs & Chargement des controlleurs
- */
-class Core
-{
-    // Propriétées
+  /*
+   * App Core Class
+   * Creates URL & loads core controller
+   * URL FORMAT - /controller/method/params
+   */
+  class Core {
     protected $currentController = 'Pages';
     protected $currentMethod = 'index';
     protected $params = [];
 
-    public function __construct()
-    {
-        $url = $this->getUrl(); // ['post', 'create']
+    public function __construct(){
+      //print_r($this->getUrl());
 
-        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
-            $this->currentController = ucwords($url[0]); // http://localhost/daranco/post - User or Post.
-            unset($url[0]); // Optionnel mais fait partie des bonnes pratiques.
+      $url = $this->getUrl();
+
+      // Look in BLL for first value
+      if(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
+        // If exists, set as controller
+        $this->currentController = ucwords($url[0]);
+        // Unset 0 Index
+        unset($url[0]);
+      }
+
+      // Require the controller
+      require_once '../app/controllers/'. $this->currentController . '.php';
+
+      // Instantiate controller class
+      $this->currentController = new $this->currentController;
+
+      // Check for second part of url
+      if(isset($url[1])){
+        // Check to see if method exists in controller
+        if(method_exists($this->currentController, $url[1])){
+          $this->currentMethod = $url[1];
+          // Unset 1 index
+          unset($url[1]);
         }
+      }
 
-        // Requiert le controlleur.
-        require_once '../app/controllers/' . $this->currentController . '.php';
-        // require_once '../app/controllers/Post.php';
-        // require_once '../app/controllers/User.php';
+      // Get params
+      $this->params = $url ? array_values($url) : [];
 
-        // Instancie la classe du controlleur.
-        $this->currentController = new $this->currentController;
-        // $this->currentController = new Post;
-
-        if (isset($url[1])) {
-            // Verifie si la méthode existe dans le controlleur.
-            if (method_exists($this->currentController, $url[1])) { // http://localhost/daranco/post/create.
-                $this->currentMethod = $url[1];
-                unset($url[1]);
-            }
-        }
-
-        // Récupérer les paramètres.
-        $this->params = $url ? array_values($url) : [];
-
-        // Appel un callback avec un tableau de paramètre
-        call_user_func_array([$this->currentController, $this->currentMethod], $this->params); // Permet de récuperer les paramètres dans un tableau
+      // Call a callback with array of params
+      call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
 
-    /**
-     * Récupère l'URL courant
-     */
-    public function getUrl()
-    {
-        if (isset($_GET['url'])) {
-            $url= rtrim($_GET['url'], '/'); // Supprimer le /
-            $url = filter_var($url, FILTER_SANITIZE_URL);
-            $url = explode('/', $url); // ['post', 'create']
-
-            return $url; // retourne ['post', 'create']
-        }
+    public function getUrl(){
+      if(isset($_GET['url'])){
+        $url = rtrim($_GET['url'], '/');
+        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $url = explode('/', $url);
+        return $url;
+      }
     }
+  }
 
-    // isset(); // il verifier si une variable est déclarer et que sa valeur n'est pas égal à NULL.
-    // empty(); // il verifier si une variable est vide ou pas.
-    // $_GET => elle donne les valeurs des informations indiquées dans l'url
-    // rtrim() supprime les espaces vides en fin de chaine de caractère
-    // filter_var() permet de filtré une variable avec un filtre specifique.
-    // ucwords // met la premiere lettre en majuscule.
-    // unset() sert à détruire une variable.
-    // array_values sert à retourner toutes les valeurs d'un tableau
-}
