@@ -30,7 +30,7 @@ class Core
         if (isset($url[1])) {
             // Verifie si la méthode existe dans le controlleur.
             if (method_exists($this->currentController, $url[1])) { // http://localhost/daranco/post/create.
-                $currentMethod = $url[1];
+                $this->currentMethod = $url[1];
                 unset($url[1]);
             }
         }

@@ -13,7 +13,7 @@ class Database
     // Méthodes
     public function __construct()
     {
-        $connect = 'mysql:host=' . $this->dbHost . ';dbname=' . $this->dbName . ';charset=utf8_unicode_520_ci';
+        $connect = 'mysql:host=' . $this->dbHost . ';dbname=' . $this->dbName . '';
         $options = array(
             PDO::ATTR_PERSISTENT => true, // Rendre la connexion persistante.
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // définir le code d'erreurs et lance une exception.
