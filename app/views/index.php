@@ -14,3 +14,6 @@
 <div class="footer">
     <?php require APP_ROOT . '/views/layout/footer.php'; ?>
 </div>
+
+
+index.php index.html, index.xml, fhlgs

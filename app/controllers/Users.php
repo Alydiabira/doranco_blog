@@ -45,7 +45,7 @@ class Users extends Controller {
             $nameValidation = "/^[a-zA-Z0-9]*$/";
             $passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
 
-            //Validate username on letters/numbers
+            //Validate alias on letters/numbers
             if (empty($data['lastname'])) {
                 $data['lastnameError'] = 'Please enter lastname.';
             } elseif (!preg_match($nameValidation, $data['lastname'])) {
@@ -89,8 +89,7 @@ class Users extends Controller {
             }
 
             // Make sure that errors are empty
-            if (empty($data['usernameError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
-
+            if (empty($data['lastnameError']) && empty($data['fistnameError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
                 // Hash password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -109,9 +108,9 @@ class Users extends Controller {
     public function login() {
         $data = [
             'title' => 'Login page',
-            'username' => '',
+            'alias' => '',
             'password' => '',
-            'usernameError' => '',
+            'aliasError' => '',
             'passwordError' => ''
         ];
 
@@ -121,14 +120,14 @@ class Users extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
-                'username' => trim($_POST['username']),
+                'alias' => trim($_POST['alias']),
                 'password' => trim($_POST['password']),
-                'usernameError' => '',
+                'aliasError' => '',
                 'passwordError' => '',
             ];
-            //Validate username
-            if (empty($data['username'])) {
-                $data['usernameError'] = 'Please enter a username.';
+            //Validate alias
+            if (empty($data['alias'])) {
+                $data['aliasError'] = 'Please enter a alias.';
             }
 
             //Validate password
@@ -137,13 +136,13 @@ class Users extends Controller {
             }
 
             //Check if all errors are empty
-            if (empty($data['usernameError']) && empty($data['passwordError'])) {
-                $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+            if (empty($data['aliasError']) && empty($data['passwordError'])) {
+                $loggedInUser = $this->userModel->login($data['alias'], $data['password']);
 
                 if ($loggedInUser) {
                     $this->createUserSession($loggedInUser);
                 } else {
-                    $data['passwordError'] = 'Password or username is incorrect. Please try again.';
+                    $data['passwordError'] = 'Password or alias is incorrect. Please try again.';
 
                     $this->view('users/login', $data);
                 }
@@ -151,25 +150,26 @@ class Users extends Controller {
 
         } else {
             $data = [
-                'username' => '',
+                'alias' => '',
                 'password' => '',
-                'usernameError' => '',
+                'aliasError' => '',
                 'passwordError' => ''
             ];
         }
         $this->view('users/login', $data);
+        print_r($_SESSION);
     }
 
     public function createUserSession($user) {
         $_SESSION['user_id'] = $user->id;
-        $_SESSION['username'] = $user->username;
+        $_SESSION['alias'] = $user->alias;
         $_SESSION['email'] = $user->email;
         header('location:' . URL_ROOT . 'pages/index');
     }
 
     public function logout() {
         unset($_SESSION['user_id']);
-        unset($_SESSION['username']);
+        unset($_SESSION['alias']);
         unset($_SESSION['email']);
         header('location:' . URL_ROOT . 'users/login');
     }

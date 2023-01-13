@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis deserunt quis odio numquam libero cumque tempora at dolores optio dolor. Facere voluptatibus ipsa dolor mollitia aliquam ad excepturi atque sed.</p>
+            <h1>Contact</h1>
         </div>
     </div>
 </div>

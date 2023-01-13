@@ -16,7 +16,7 @@
                                 Alias
                                 <?php echo $data['aliasError']; ?>
                             </span>
-                            <input type="text" class="form-control" name="alias" placeholder="Alias" aria-label="Alias" aria-describedby="alias">
+                            <input type="text" class="form-control" name="alias" placeholder="Alias" aria-label="Alias" aria-describedby="alias" required>
                         </div>
 
                         <div class="input-group mb-3">
@@ -24,7 +24,7 @@
                                 Password
                                 <?php echo $data['passwordError']; ?>
                             </span>
-                            <input type="password" class="form-control" name="password" placeholder="Password" aria-label="Password" aria-describedby="password">
+                            <input type="password" class="form-control" name="password" placeholder="Password" aria-label="Password" aria-describedby="password" required>
                         </div>
 
                         <button id="submit" type="submit" value="Login">Login</button>
