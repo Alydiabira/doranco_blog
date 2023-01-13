@@ -37,7 +37,14 @@
                                 <a href="<?php echo URL_ROOT; ?>posts/update/<?php echo $post->id ?>" class="btn orange">Edit</a>
                             </button>
                             <form action="<?php echo URL_ROOT; ?>posts/delete/<?php echo $post->id ?>" method="post">
-                                <input type="submit" name="delete" value="Delete" class="btn red">
+                                <script>
+                                    // function confirm() => alert("Are you sure ??");
+                                    // Equivalent
+                                    function confirm() {
+                                        alert("Are you sure ??");
+                                    }
+                                </script>
+                                <input type="submit" name="delete" value="Delete" class="btn red" onclick="confirm()">
                             </form>
                         <?php endif; ?>
                     </div>

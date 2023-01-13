@@ -51,6 +51,11 @@
     </div>
 </div>
 
+<script>
+    CKEDITOR.replace('excerpt');
+    CKEDITOR.replace('content');
+</script>
+
 <div class="footer">
     <?php require APP_ROOT . '/views/layout/footer.php'; ?>
 </div>

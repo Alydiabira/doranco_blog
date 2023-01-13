@@ -12,6 +12,7 @@
     public function __construct(){
       //print_r($this->getUrl());
 
+      // REcupère l'URL
       $url = $this->getUrl();
 
       // Look in BLL for first value

@@ -144,7 +144,7 @@ class Posts extends Controller
 
             if (empty($data['titleError']) && empty($data['excerptError']) && empty($data['contentError']) && empty($data['categoryError'])) {
                 if ($this->postModel->updatePost($data)) {
-                    header("Location: " . URL_ROOT . "/posts");
+                    header("Location: " . URL_ROOT . "posts");
                 } else {
                     die("Something went wrong, please try again!");
                 }
